@@ -23,6 +23,11 @@ public class Profissionais {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime updated_at;
 
+    @OneToMany(mappedBy = "profissional",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    List<Consultas> consultas;
+
     public Long getId() {
         return id;
     }
@@ -71,4 +76,11 @@ public class Profissionais {
         this.updated_at = updated_at;
     }
 
+    public List<Consultas> getConsultas() {
+        return consultas;
+    }
+
+    public void setConsultas(List<Consultas> consultas) {
+        this.consultas = consultas;
+    }
 }

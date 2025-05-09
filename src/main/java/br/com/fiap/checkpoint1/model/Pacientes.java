@@ -1,10 +1,7 @@
 package br.com.fiap.checkpoint1.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -27,7 +24,10 @@ public class Pacientes {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime updated_at;
 
-
+    @OneToMany(mappedBy = "paciente",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    List<Consultas> consultas;
     public Long getId() {
         return id;
     }
