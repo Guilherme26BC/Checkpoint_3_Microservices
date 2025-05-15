@@ -99,4 +99,12 @@ public class Pacientes {
     public void setUpdated_at(LocalDateTime updated_at) {
         this.updated_at = updated_at;
     }
+
+    public List<Consultas> getConsultas() {
+        return consultas;
+    }
+
+    public void setConsultas(List<Consultas> consultas) {
+        this.consultas = consultas;
+    }
 }

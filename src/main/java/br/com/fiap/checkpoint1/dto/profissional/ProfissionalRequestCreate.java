@@ -14,23 +14,22 @@ public class ProfissionalRequestCreate {
     private String especialidade;
     private BigDecimal valor_hora;
 
-//    public Profissionais toModel(){
-//    Profissionais profissional = new Profissionais();
-//    profissional.setNome(this.getNome());
-//    profissional.setEspecialidade(this.getEspecialidade());
-//    profissional.setValor_hora(this.valor_hora);
-//    profissional.setCreated_at(LocalDateTime.now());
-//    profissional.setUpdated_at(LocalDateTime.now());
-//
+    public Profissionais toModel(){
+    Profissionais profissional = new Profissionais();
+    profissional.setNome(this.getNome());
+    profissional.setEspecialidade(this.getEspecialidade());
+    profissional.setValor_hora(this.valor_hora);
+    profissional.setCreated_at(LocalDateTime.now());
+    profissional.setUpdated_at(LocalDateTime.now());
+
 //    List<Consultas> consultasM = this.getConsultas().stream().map(i->{
 //        Consultas consulta = new Consultas();
 //        Profissionais profissionais = new Profissionais();
 //        Pacientes pacientes = new Pacientes();
-//
-//
 //    })
-//    return profissional;
-//    }
+
+    return profissional;
+    }
     public String getNome() {
         return nome;
     }

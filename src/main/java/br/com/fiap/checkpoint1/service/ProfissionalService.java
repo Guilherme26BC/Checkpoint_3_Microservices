@@ -30,14 +30,7 @@ public class ProfissionalService {
     private PacienteRepository pacienteRepository;
 
     public Profissionais criarProfissional(ProfissionalRequestCreate dto){
-        Profissionais profissional = new Profissionais();
-        profissional.setNome(dto.getNome());
-        profissional.setEspecialidade(dto.getEspecialidade());
-        profissional.setValor_hora(dto.getValor_hora());
-        profissional.setCreated_at(LocalDateTime.now());
-        profissional.setUpdated_at(LocalDateTime.now());
-
-        return profissionalRepository.save(profissional);
+        return profissionalRepository.save(dto.toModel());
     }
 
     public Optional<Profissionais> atualizarProfissional(Long id, ProfissionalRequestUpdate dto){

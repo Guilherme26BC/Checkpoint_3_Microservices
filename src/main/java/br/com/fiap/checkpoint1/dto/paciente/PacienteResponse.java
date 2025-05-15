@@ -1,10 +1,14 @@
 package br.com.fiap.checkpoint1.dto.paciente;
 
+import br.com.fiap.checkpoint1.dto.consultas.ConsultasResponse;
+import br.com.fiap.checkpoint1.model.Consultas;
 import br.com.fiap.checkpoint1.model.Pacientes;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class PacienteResponse {
     private Long id;
@@ -20,6 +24,7 @@ public class PacienteResponse {
     private LocalDateTime created_at;
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime updated_at;
+    private List<Consultas> consultas;
 
     //metodo para auxiliar no envio de informações paro a web
     public PacienteResponse toDto(Pacientes pacientes){
@@ -32,6 +37,10 @@ public class PacienteResponse {
         this.setData_nascimento(pacientes.getData_nascimento());
         this.setCreated_at(pacientes.getCreated_at());
         this.setUpdated_at(pacientes.getUpdated_at());
+        List<ConsultasResponse> consultasResponses = pacientes.getConsultas()
+                .stream().map(consulta -> new ConsultasResponse().toDto(consulta)).
+                collect(Collectors.toList());
+        this.setConsultas(consultasResponses);
         return this;
     }
     public Long getId() {
@@ -104,5 +113,13 @@ public class PacienteResponse {
 
     public void setUpdated_at(LocalDateTime updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public List<Consultas> getConsultas() {
+        return consultas;
+    }
+
+    public void setConsultas(List<Consultas> consultas) {
+        this.consultas = consultas;
     }
 }
