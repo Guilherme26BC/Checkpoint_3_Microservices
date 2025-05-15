@@ -26,7 +26,7 @@ public class Profissionais {
     @OneToMany(mappedBy = "profissional",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    List<Consultas> consultas;
+    private List<Consultas> consultas; //modificar os services, controlers e dtos adicionando a lista
 
     public Long getId() {
         return id;

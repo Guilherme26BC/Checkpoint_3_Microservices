@@ -26,8 +26,8 @@ public class Pacientes {
 
     @OneToMany(mappedBy = "paciente",
             cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    List<Consultas> consultas;
+            orphanRemoval = true) //modificar os services, controller e dtos adicionando a lista
+    private List<Consultas> consultas;
     public Long getId() {
         return id;
     }
