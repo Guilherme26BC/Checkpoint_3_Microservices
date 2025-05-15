@@ -3,6 +3,7 @@ package br.com.fiap.checkpoint1.controller;
 import br.com.fiap.checkpoint1.dto.profissional.ProfissionalRequestCreate;
 import br.com.fiap.checkpoint1.dto.profissional.ProfissionalRequestUpdate;
 import br.com.fiap.checkpoint1.dto.profissional.ProfissionalResponse;
+import br.com.fiap.checkpoint1.dto.profissional.ProfissionalResponseCreate;
 import br.com.fiap.checkpoint1.service.ProfissionalService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,8 @@ public class ControllerProfissional {
     private ProfissionalService profissionalService;
 
     @PostMapping
-    public ResponseEntity<ProfissionalResponse> criarProfissional(@RequestBody ProfissionalRequestCreate dto){
-        return ResponseEntity.status(201).body(new ProfissionalResponse()
+    public ResponseEntity<ProfissionalResponseCreate> criarProfissional(@RequestBody ProfissionalRequestCreate dto){
+        return ResponseEntity.status(201).body(new ProfissionalResponseCreate()
                 .toDto(profissionalService.criarProfissional(dto)));
     }
 

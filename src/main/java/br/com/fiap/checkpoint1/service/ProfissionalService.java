@@ -28,7 +28,7 @@ public class ProfissionalService {
     private ConsultaRepository consultaRepository;
     @Autowired
     private PacienteRepository pacienteRepository;
-
+    //falta update e delete
     public Profissionais criarProfissional(ProfissionalRequestCreate dto){
         return profissionalRepository.save(dto.toModel());
     }

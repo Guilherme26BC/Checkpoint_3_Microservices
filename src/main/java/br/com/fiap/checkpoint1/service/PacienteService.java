@@ -16,6 +16,7 @@ public class PacienteService {
     @Autowired
     private PacienteRepository pacienteRepository;
 
+    //falta update e delete
     public Pacientes criarPaciente(PacienteRequestCreate dto){
         return pacienteRepository.save(dto.toModel());
     }

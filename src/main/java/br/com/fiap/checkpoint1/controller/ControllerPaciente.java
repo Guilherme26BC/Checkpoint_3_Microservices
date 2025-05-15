@@ -3,6 +3,7 @@ package br.com.fiap.checkpoint1.controller;
 import br.com.fiap.checkpoint1.dto.paciente.PacienteRequestCreate;
 import br.com.fiap.checkpoint1.dto.paciente.PacienteRequestUpdate;
 import br.com.fiap.checkpoint1.dto.paciente.PacienteResponse;
+import br.com.fiap.checkpoint1.dto.paciente.PacienteResponseCreate;
 import br.com.fiap.checkpoint1.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +20,9 @@ public class ControllerPaciente {
     private PacienteService pacienteService;
 
     @PostMapping
-    public ResponseEntity<PacienteResponse> criarPaciente(@RequestBody PacienteRequestCreate dto){
+    public ResponseEntity<PacienteResponseCreate> criarPaciente(@RequestBody PacienteRequestCreate dto){
         return ResponseEntity.status(201)
-                .body(new PacienteResponse()
+                .body(new PacienteResponseCreate()
                         .toDto(pacienteService.criarPaciente(dto)));
     }
 
