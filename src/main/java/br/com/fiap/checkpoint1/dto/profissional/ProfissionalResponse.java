@@ -1,10 +1,13 @@
 package br.com.fiap.checkpoint1.dto.profissional;
 
+import br.com.fiap.checkpoint1.dto.consultas.ConsultasResponse;
 import br.com.fiap.checkpoint1.model.Profissionais;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProfissionalResponse {
     private Long id;
@@ -15,6 +18,8 @@ public class ProfissionalResponse {
     private LocalDateTime created_at;
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime updated_at;
+    private List<ConsultasResponse> consultas;
+
 
     public ProfissionalResponse toDto(Profissionais profissionais){
         this.setId(profissionais.getId());
@@ -23,6 +28,10 @@ public class ProfissionalResponse {
         this.setValor_hora(profissionais.getValor_hora());
         this.setCreated_at(profissionais.getCreated_at());
         this.setUpdated_at(profissionais.getUpdated_at());
+        List<ConsultasResponse> consultasResponses = profissionais.getConsultas()
+                .stream().map(consulta -> new ConsultasResponse().toDto(consulta)).
+                collect(Collectors.toList());
+        this.setConsultas(consultasResponses);
         return this;
     }
     public Long getId() {
@@ -71,5 +80,13 @@ public class ProfissionalResponse {
 
     public void setUpdated_at(LocalDateTime updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public List<ConsultasResponse> getConsultas() {
+        return consultas;
+    }
+
+    public void setConsultas(List<ConsultasResponse> consultasResponses) {
+        this.consultas = consultasResponses;
     }
 }

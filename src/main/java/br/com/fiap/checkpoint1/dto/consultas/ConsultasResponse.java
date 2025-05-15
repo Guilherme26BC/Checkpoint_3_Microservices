@@ -1,30 +1,21 @@
-package br.com.fiap.checkpoint1.model;
+package br.com.fiap.checkpoint1.dto.consultas;
 
-import jakarta.persistence.*;
+import br.com.fiap.checkpoint1.model.Consultas;
+import br.com.fiap.checkpoint1.model.Pacientes;
+import br.com.fiap.checkpoint1.model.Profissionais;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Entity
-public class Consultas {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @ManyToOne
-    @Cascade(value = CascadeType.ALL)
-    @JoinColumn(name = "profissional_id")
-    private Profissionais profissional;
-
-    @ManyToOne
-    @Cascade(value = CascadeType.ALL)
-    @JoinColumn(name ="paciente_id")
-    private Pacientes paciente;
-
+public class ConsultasResponse {
+   private Long id;
+    private String profissional_nome;
+    private String paciente_nome;
     private LocalDateTime data_consulta;
     private String status; //mudar para enum dps
     private BigInteger quantidade_horas;
@@ -32,6 +23,18 @@ public class Consultas {
     private LocalDateTime created_at;
     private LocalDateTime updated_at;
 
+    public ConsultasResponse toDto(Consultas consulta){
+        this.setId(consulta.getId());
+        this.setProfissional_nome(consulta.getProfissional().getNome());
+        this.setPaciente_nome(consulta.getPaciente().getNome());
+        this.setData_consulta(consulta.getData_consulta());
+        this.setStatus(consulta.getStatus());
+        this.setQuantidade_horas(consulta.getQuantidade_horas());
+        this.setValor_consulta(consulta.getValor_consulta());
+        this.setCreated_at(consulta.getCreated_at());
+        this.setUpdated_at(consulta.getUpdated_at());
+        return this;
+    }
     public Long getId() {
         return id;
     }
@@ -40,20 +43,20 @@ public class Consultas {
         this.id = id;
     }
 
-    public Profissionais getProfissional() {
-        return profissional;
+    public String getProfissional_nome() {
+        return profissional_nome;
     }
 
-    public void setProfissional(Profissionais profissional) {
-        this.profissional = profissional;
+    public void setProfissional_nome(String profissional_nome) {
+        this.profissional_nome = profissional_nome;
     }
 
-    public Pacientes getPaciente() {
-        return paciente;
+    public String getPaciente_nome() {
+        return paciente_nome;
     }
 
-    public void setPaciente(Pacientes paciente) {
-        this.paciente = paciente;
+    public void setPaciente_nome(String paciente_nome) {
+        this.paciente_nome = paciente_nome;
     }
 
     public LocalDateTime getData_consulta() {
