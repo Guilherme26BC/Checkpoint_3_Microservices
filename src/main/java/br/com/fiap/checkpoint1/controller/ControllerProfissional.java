@@ -4,6 +4,7 @@ import br.com.fiap.checkpoint1.dto.profissional.ProfissionalRequestCreate;
 import br.com.fiap.checkpoint1.dto.profissional.ProfissionalRequestUpdate;
 import br.com.fiap.checkpoint1.dto.profissional.ProfissionalResponse;
 import br.com.fiap.checkpoint1.dto.profissional.ProfissionalResponseCreate;
+import br.com.fiap.checkpoint1.model.ConsultaStatus;
 import br.com.fiap.checkpoint1.service.ProfissionalService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +27,6 @@ public class ControllerProfissional {
                 .toDto(profissionalService.criarProfissional(dto)));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ProfissionalResponse> atualizarProfissional(@PathVariable Long id, @RequestBody ProfissionalRequestUpdate dto){
-        return profissionalService.atualizarProfissional(id, dto)
-                .map(p-> new ProfissionalResponse().toDto(p))
-                .map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<ProfissionalResponse> buscarProfissionalPorId(@PathVariable Long id){
         return profissionalService.buscarPorId(id)
@@ -45,6 +39,19 @@ public class ControllerProfissional {
         return ResponseEntity.ok(profissionalService.buscarTodos()
                 .stream().map(p-> new ProfissionalResponse().toDto(p))
                 .collect(Collectors.toList()));
+    }
+    @GetMapping("/query")
+    public ResponseEntity<List<ProfissionalResponse>>
+    buscarPorIdEStatusConsuta(@RequestBody Long id, @RequestBody ConsultaStatus consultaStatus){
+        return ResponseEntity.ok().body(profissionalService.buscarPorProfissionalEStatus(id, consultaStatus)
+                .stream().map(p -> new ProfissionalResponse().toDto(p)).collect(Collectors.toList()));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProfissionalResponse> atualizarProfissional(@PathVariable Long id, @RequestBody ProfissionalRequestUpdate dto){
+        return profissionalService.atualizarProfissional(id, dto)
+                .map(p-> new ProfissionalResponse().toDto(p))
+                .map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarProfissional(@PathVariable Long id){

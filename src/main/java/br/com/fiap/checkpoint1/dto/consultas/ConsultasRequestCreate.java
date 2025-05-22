@@ -1,5 +1,12 @@
 package br.com.fiap.checkpoint1.dto.consultas;
 
+import br.com.fiap.checkpoint1.model.ConsultaStatus;
+import br.com.fiap.checkpoint1.model.Consultas;
+import br.com.fiap.checkpoint1.model.Pacientes;
+import br.com.fiap.checkpoint1.model.Profissionais;
+import br.com.fiap.checkpoint1.repository.PacienteRepository;
+import br.com.fiap.checkpoint1.repository.ProfissionalRepository;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
@@ -8,11 +15,26 @@ public class ConsultasRequestCreate {
     private Long profissional_id;
     private Long paciente_id;
     private LocalDateTime data_consulta;
-    private String status; //mudar para enum depois
     private BigInteger quantidade_horas;
     private BigDecimal valor_consulta;
 
+    public Consultas toModel(ProfissionalRepository profissionalRepository, PacienteRepository pacienteRepository){
+        Consultas consulta = new Consultas();
+        Profissionais profissionais = profissionalRepository.findById(this.getProfissional_id())
+                .orElseThrow(() ->
+                        new RuntimeException("Produto inexistente: " + this.getProfissional_id()));
+        consulta.setProfissional(profissionais);
+        Pacientes pacientes = pacienteRepository.findById(this.getPaciente_id()).orElseThrow(() ->
+                new RuntimeException("Produto inexistente: " + this.getPaciente_id()));
 
+        consulta.setData_consulta(this.getData_consulta());
+        consulta.setStatus(ConsultaStatus.AGENDADA);
+        consulta.setValor_consulta(this.getValor_consulta());
+        consulta.setQuantidade_horas(this.getQuantidade_horas());
+        consulta.setCreated_at(LocalDateTime.now());
+        consulta.setUpdated_at(LocalDateTime.now());
+    return consulta;
+    }
     public Long getProfissional_id() {
         return profissional_id;
     }
@@ -35,14 +57,6 @@ public class ConsultasRequestCreate {
 
     public void setData_consulta(LocalDateTime data_consulta) {
         this.data_consulta = data_consulta;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public BigInteger getQuantidade_horas() {

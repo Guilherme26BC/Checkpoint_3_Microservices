@@ -14,9 +14,9 @@ public class ProfissionalResponse {
     private String nome;
     private String especialidade;
     private BigDecimal valor_hora;
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern =  "dd-MM-yyyy HH:mm")
     private LocalDateTime created_at;
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern =  "dd-MM-yyyy HH:mm")
     private LocalDateTime updated_at;
     private List<ConsultasResponse> consultas;
 

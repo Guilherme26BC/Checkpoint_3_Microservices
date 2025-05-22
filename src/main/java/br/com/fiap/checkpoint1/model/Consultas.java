@@ -26,7 +26,8 @@ public class Consultas {
     private Pacientes paciente;
 
     private LocalDateTime data_consulta;
-    private String status; //mudar para enum dps
+    @Enumerated(EnumType.STRING)
+    private ConsultaStatus status;
     private BigInteger quantidade_horas;
     private BigDecimal valor_consulta;
     private LocalDateTime created_at;
@@ -64,11 +65,11 @@ public class Consultas {
         this.data_consulta = data_consulta;
     }
 
-    public String getStatus() {
+    public ConsultaStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(ConsultaStatus status) {
         this.status = status;
     }
 

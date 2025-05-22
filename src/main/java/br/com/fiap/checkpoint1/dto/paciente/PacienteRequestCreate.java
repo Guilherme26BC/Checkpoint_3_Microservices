@@ -12,6 +12,7 @@ public class PacienteRequestCreate {
     private String bairro;
     private String email;
     private String telefone_completo;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate data_nascimento;
 
     public Pacientes toModel(){

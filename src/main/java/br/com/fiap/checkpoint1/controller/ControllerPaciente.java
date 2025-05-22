@@ -4,6 +4,7 @@ import br.com.fiap.checkpoint1.dto.paciente.PacienteRequestCreate;
 import br.com.fiap.checkpoint1.dto.paciente.PacienteRequestUpdate;
 import br.com.fiap.checkpoint1.dto.paciente.PacienteResponse;
 import br.com.fiap.checkpoint1.dto.paciente.PacienteResponseCreate;
+import br.com.fiap.checkpoint1.model.ConsultaStatus;
 import br.com.fiap.checkpoint1.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,21 +27,6 @@ public class ControllerPaciente {
                         .toDto(pacienteService.criarPaciente(dto)));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<PacienteResponse> atualizarPaciente(@PathVariable Long id, @RequestBody PacienteRequestUpdate dto){
-        return pacienteService.atualizarPaciente(id, dto)
-                .map(p->new PacienteResponse().toDto(p))
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarPaciente(@PathVariable Long id){
-    if(pacienteService.deletarPaciente(id)){
-        return ResponseEntity.status(204).build();
-    }else{
-        return ResponseEntity.notFound().build();
-    }
-    }
     //path variable para separar os mapping de get
     @GetMapping("/{id}")
     public ResponseEntity<PacienteResponse> buscarPacienteById(@PathVariable Long id){
@@ -51,11 +37,32 @@ public class ControllerPaciente {
     }
     @GetMapping
     public ResponseEntity<List<PacienteResponse>> buscarTodos(){
-        List<PacienteResponse> responses= pacienteService.buscarTodosPacientes()
+
+        return ResponseEntity.ok(pacienteService.buscarTodosPacientes()
                 .stream()
                 .map(p->new PacienteResponse().toDto(p))
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(responses);
+                .collect(Collectors.toList()));
     }
 
+    @GetMapping("/query")
+    public ResponseEntity<List<PacienteResponse>> buscarPorIdEStatusConsulta(Long id, ConsultaStatus consultaStatus){
+        return ResponseEntity.ok(pacienteService.buscarPorIdeConsultaStatus(id, consultaStatus)
+                .stream().map(p -> new PacienteResponse().toDto(p)).collect(Collectors.toList()));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PacienteResponse> atualizarPaciente(@PathVariable Long id, @RequestBody PacienteRequestUpdate dto){
+        return pacienteService.atualizarPaciente(id, dto)
+                .map(p->new PacienteResponse().toDto(p))
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarPaciente(@PathVariable Long id){
+        if(pacienteService.deletarPaciente(id)){
+            return ResponseEntity.status(204).build();
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

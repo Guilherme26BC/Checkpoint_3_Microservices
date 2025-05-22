@@ -18,11 +18,11 @@ public class PacienteResponse {
     private String email;
     private String telefone_completo;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate data_nascimento;
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern =  "dd-MM-yyyy HH:mm")
     private LocalDateTime created_at;
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern =  "dd-MM-yyyy HH:mm")
     private LocalDateTime updated_at;
     private List<ConsultasResponse> consultas;
 

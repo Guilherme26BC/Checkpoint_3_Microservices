@@ -28,7 +28,7 @@ public class ConsultasResponse {
         this.setProfissional_nome(consulta.getProfissional().getNome());
         this.setPaciente_nome(consulta.getPaciente().getNome());
         this.setData_consulta(consulta.getData_consulta());
-        this.setStatus(consulta.getStatus());
+        this.setStatus(consulta.getStatus().getMensagem());
         this.setQuantidade_horas(consulta.getQuantidade_horas());
         this.setValor_consulta(consulta.getValor_consulta());
         this.setCreated_at(consulta.getCreated_at());
