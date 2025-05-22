@@ -25,7 +25,7 @@ public class Consultas {
     @JoinColumn(name ="paciente_id")
     private Pacientes paciente;
 
-    private LocalDateTime data_consulta;
+private LocalDateTime data_consulta;
     @Enumerated(EnumType.STRING)
     private ConsultaStatus status;
     private BigInteger quantidade_horas;

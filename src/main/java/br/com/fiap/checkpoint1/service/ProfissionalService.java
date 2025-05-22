@@ -42,9 +42,9 @@ public class ProfissionalService {
         return profissionalRepository.findAll();
     }
 
-    public List<Profissionais> buscarPorProfissionalEStatus(Long id, ConsultaStatus consultaStatus){
-        return profissionalRepository.findByIdAndConsultaStatus(id, consultaStatus);
-    }
+//    public List<Profissionais> buscarPorProfissionalEStatus(Long id, ConsultaStatus consultaStatus){
+//        return profissionalRepository.findByIdAndConsultaStatus(id, consultaStatus);
+//    }
 
     public Optional<Profissionais> atualizarProfissional(Long id, ProfissionalRequestUpdate dto){
         return profissionalRepository.findById(id)

@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 
-public class ConsultasRequestCreate {
+public class ConsultaRequestUpdate {
     private Long profissional_id;
     private Long paciente_id;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm")
@@ -20,23 +20,21 @@ public class ConsultasRequestCreate {
     private BigInteger quantidade_horas;
     private BigDecimal valor_consulta;
 
-    public Consultas toModel(ProfissionalRepository profissionalRepository, PacienteRepository pacienteRepository){
-        Consultas consulta = new Consultas();
+    public Consultas toModel(Consultas consultas, ProfissionalRepository profissionalRepository, PacienteRepository pacienteRepository, ConsultaStatus consultaStatus){
         Profissionais profissionais = profissionalRepository.findById(this.getProfissional_id())
                 .orElseThrow(() ->
                         new RuntimeException("Profissional inexistente: " + this.getProfissional_id()));
-        consulta.setProfissional(profissionais);
+        consultas.setProfissional(profissionais);
         Pacientes pacientes = pacienteRepository.findById(this.getPaciente_id()).orElseThrow(() ->
                 new RuntimeException("Paciente inexistente: " + this.getPaciente_id()));
-        consulta.setPaciente(pacientes);
-        consulta.setData_consulta(this.getData_consulta());
-        consulta.setStatus(ConsultaStatus.AGENDADA);
-        consulta.setValor_consulta(this.getValor_consulta());
-        consulta.setQuantidade_horas(this.getQuantidade_horas());
-        consulta.setCreated_at(LocalDateTime.now());
-        consulta.setUpdated_at(LocalDateTime.now());
-        return consulta;
+       consultas.setPaciente(pacientes);
+       consultas.setData_consulta(this.getData_consulta());
+       consultas.setQuantidade_horas(this.getQuantidade_horas());
+       consultas.setValor_consulta(this.getValor_consulta());
+       consultas.setStatus(consultaStatus);
+       return consultas;
     }
+
     public Long getProfissional_id() {
         return profissional_id;
     }

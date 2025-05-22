@@ -30,9 +30,7 @@ public class PacienteService {
         return pacienteRepository.findAll();
     }
 
-    public List<Pacientes> buscarPorIdeConsultaStatus(Long id, ConsultaStatus consultaStatus){
-        return pacienteRepository.findByIdAndConsultaStatus(id,consultaStatus);
-    }
+
     public Optional<Pacientes> atualizarPaciente(Long id, PacienteRequestUpdate dto){
         return pacienteRepository.findById(id)
                 .map(o-> pacienteRepository.save((dto.toModel(o))));

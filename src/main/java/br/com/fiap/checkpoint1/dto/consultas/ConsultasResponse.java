@@ -3,6 +3,7 @@ package br.com.fiap.checkpoint1.dto.consultas;
 import br.com.fiap.checkpoint1.model.Consultas;
 import br.com.fiap.checkpoint1.model.Pacientes;
 import br.com.fiap.checkpoint1.model.Profissionais;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import org.hibernate.annotations.Cascade;
@@ -16,6 +17,7 @@ public class ConsultasResponse {
    private Long id;
     private String profissional_nome;
     private String paciente_nome;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm")
     private LocalDateTime data_consulta;
     private String status; //mudar para enum dps
     private BigInteger quantidade_horas;

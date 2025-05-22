@@ -44,11 +44,6 @@ public class ControllerPaciente {
                 .collect(Collectors.toList()));
     }
 
-    @GetMapping("/query")
-    public ResponseEntity<List<PacienteResponse>> buscarPorIdEStatusConsulta(Long id, ConsultaStatus consultaStatus){
-        return ResponseEntity.ok(pacienteService.buscarPorIdeConsultaStatus(id, consultaStatus)
-                .stream().map(p -> new PacienteResponse().toDto(p)).collect(Collectors.toList()));
-    }
 
     @PutMapping("/{id}")
     public ResponseEntity<PacienteResponse> atualizarPaciente(@PathVariable Long id, @RequestBody PacienteRequestUpdate dto){

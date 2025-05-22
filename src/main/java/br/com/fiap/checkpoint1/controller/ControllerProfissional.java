@@ -40,12 +40,12 @@ public class ControllerProfissional {
                 .stream().map(p-> new ProfissionalResponse().toDto(p))
                 .collect(Collectors.toList()));
     }
-    @GetMapping("/query")
-    public ResponseEntity<List<ProfissionalResponse>>
-    buscarPorIdEStatusConsuta(@RequestBody Long id, @RequestBody ConsultaStatus consultaStatus){
-        return ResponseEntity.ok().body(profissionalService.buscarPorProfissionalEStatus(id, consultaStatus)
-                .stream().map(p -> new ProfissionalResponse().toDto(p)).collect(Collectors.toList()));
-    }
+//    @GetMapping("/query")
+//    public ResponseEntity<List<ProfissionalResponse>>
+//    buscarPorIdEStatusConsuta(@RequestBody Long id, @RequestBody ConsultaStatus consultaStatus){
+//        return ResponseEntity.ok().body(profissionalService.buscarPorProfissionalEStatus(id, consultaStatus)
+//                .stream().map(p -> new ProfissionalResponse().toDto(p)).collect(Collectors.toList()));
+//    }
 
     @PutMapping("/{id}")
     public ResponseEntity<ProfissionalResponse> atualizarProfissional(@PathVariable Long id, @RequestBody ProfissionalRequestUpdate dto){

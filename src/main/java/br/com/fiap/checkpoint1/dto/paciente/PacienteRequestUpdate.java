@@ -12,11 +12,11 @@ public class PacienteRequestUpdate {
    private String telefone_completo;
 
    public Pacientes toModel(Pacientes pacientes){
-       pacientes.setNome(pacientes.getNome());
-       pacientes.setEndereco(pacientes.getEndereco());
-       pacientes.setBairro(pacientes.getBairro());
-       pacientes.setEmail(pacientes.getEmail());
-       pacientes.setTelefone_completo(pacientes.getTelefone_completo());
+       pacientes.setNome(this.getNome());
+       pacientes.setEndereco(this.getEndereco());
+       pacientes.setBairro(this.getBairro());
+       pacientes.setEmail(this.getEmail());
+       pacientes.setTelefone_completo(this.getTelefone_completo());
        pacientes.setUpdated_at(LocalDateTime.now());
        return pacientes;
    }

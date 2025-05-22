@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ProfissionalRepository extends JpaRepository<Profissionais, Long>{
-public List<Profissionais> findByIdAndConsultaStatus(Long id, ConsultaStatus consultaStatus);
+
 
 }

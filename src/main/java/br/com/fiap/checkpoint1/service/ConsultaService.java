@@ -1,7 +1,9 @@
 package br.com.fiap.checkpoint1.service;
 
+import br.com.fiap.checkpoint1.dto.consultas.ConsultaRequestUpdate;
 import br.com.fiap.checkpoint1.dto.consultas.ConsultasRequestCreate;
 import br.com.fiap.checkpoint1.dto.consultas.ConsultasResponse;
+import br.com.fiap.checkpoint1.dto.paciente.PacienteRequestUpdate;
 import br.com.fiap.checkpoint1.model.ConsultaStatus;
 import br.com.fiap.checkpoint1.model.Consultas;
 import br.com.fiap.checkpoint1.model.Pacientes;
@@ -29,21 +31,6 @@ public class ConsultaService {
     private PacienteRepository pacienteRepository;
 
     public Consultas criarConsulta(ConsultasRequestCreate dto){
-//        Consultas consulta = new Consultas();
-//        Profissionais profissionais = profissionalRepository.findById(dto.getProfissional_id())
-//                .orElseThrow(() ->
-//                        new RuntimeException("Produto inexistente: " + dto.getProfissional_id()));
-//        consulta.setProfissional(profissionais);
-//       Pacientes pacientes = pacienteRepository.findById(dto.getPaciente_id()).orElseThrow(() ->
-//               new RuntimeException("Produto inexistente: " + dto.getPaciente_id()));
-//
-//       consulta.setData_consulta(dto.getData_consulta());
-//       consulta.setStatus(ConsultaStatus.MARCADA);
-//       consulta.setValor_consulta(dto.getValor_consulta());
-//       consulta.setQuantidade_horas(dto.getQuantidade_horas());
-//       consulta.setCreated_at(LocalDateTime.now());
-//       consulta.setUpdated_at(LocalDateTime.now());
-
         return consultaRepository.save(dto.toModel(profissionalRepository, pacienteRepository));
     }
     public Optional<Consultas> buscarPorId(Long id){
@@ -63,6 +50,18 @@ public class ConsultaService {
         return false;
     }
 
-
-
+    public Optional<Consultas> atualizarConsulta(Long id, ConsultaRequestUpdate dto, ConsultaStatus consultaStatus){
+        return consultaRepository.findById(id)
+                .map(o-> consultaRepository.save((dto.toModel(o, profissionalRepository, pacienteRepository,consultaStatus))));
+    }
+    public boolean deletarConsulta(Long id){
+        if(consultaRepository.existsById(id)){
+            consultaRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+//    public List<Consultas> buscarPorIdPacienteeConsultaStatus(Long id, ConsultaStatus consultaStatus){
+//        return consultaRepository.findByIdPacientesAndConsultaStatus(id,consultaStatus);
+//    }
 }
