@@ -60,10 +60,15 @@ public class ControllerConsuta {
                 .stream().map(p->new ConsultasResponse().toDto(p)).collect(Collectors.toList()));
     }
 
-//    @GetMapping("/query/{id}/")
-//    public ResponseEntity<List<ConsultasResponse>> buscarPorIdEStatusConsulta(@PathVariable Long id, @RequestBody ConsultaStatus consultaStatus){
-//        return ResponseEntity.ok(consultaService.buscarPorIdPacienteeConsultaStatus(id, consultaStatus)
-//                .stream().map(p -> new ConsultasResponse().toDto(p)).collect(Collectors.toList()));
-//    }
-
+    @GetMapping("/paciente/{id}/")
+    public ResponseEntity<List<ConsultasResponse>> buscarPorIdEStatusConsulta(@PathVariable Long id,  ConsultaStatus consultaStatus){
+        return ResponseEntity.ok(consultaService.buscarPorIdPacienteeConsultaStatus(id, consultaStatus)
+                .stream().map(p -> new ConsultasResponse().toDto(p)).collect(Collectors.toList()));
+    }
+    @GetMapping("/profissional/{id}/")
+    public ResponseEntity<List<ConsultasResponse>>
+    buscarPorIdEStatusConsuta(@PathVariable Long id,  ConsultaStatus consultaStatus){
+        return ResponseEntity.ok().body(consultaService.buscarPorProfissionalEStatus(id, consultaStatus)
+                .stream().map(new ConsultasResponse()::toDto).collect(Collectors.toList()));
+    }
 }

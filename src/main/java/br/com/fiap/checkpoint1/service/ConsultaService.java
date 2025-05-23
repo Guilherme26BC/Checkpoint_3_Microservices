@@ -61,7 +61,16 @@ public class ConsultaService {
         }
         return false;
     }
-//    public List<Consultas> buscarPorIdPacienteeConsultaStatus(Long id, ConsultaStatus consultaStatus){
-//        return consultaRepository.findByIdPacientesAndConsultaStatus(id,consultaStatus);
-//    }
+    public List<Consultas> buscarPorIdPacienteeConsultaStatus(Long id, ConsultaStatus consultaStatus){
+        Pacientes pacientes = pacienteRepository.findById(id).orElseThrow(() ->
+                new RuntimeException("Paciente inexistente: " + id));
+        return consultaRepository.findByPacienteAndStatus(pacientes,consultaStatus);
+    }
+    public List<Consultas> buscarPorProfissionalEStatus(Long id, ConsultaStatus consultaStatus){
+        Profissionais profissionais = profissionalRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Profissional inexistente: " + id));
+
+        return consultaRepository.findByProfissionalAndStatus(profissionais, consultaStatus);
+    }
 }
